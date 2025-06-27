@@ -22,15 +22,55 @@
       position: relative;
     }
 
+    body::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url('https://media.giphy.com/media/l3vR85PnGsBwu1PFK/giphy.gif');
+      background-size: cover;
+      opacity: 0.05;
+      z-index: 0;
+      pointer-events: none;
+    }
+
     h1 {
       font-size: 2.5em;
       animation: pulse 2s infinite;
+      position: relative;
+      z-index: 1;
+    }
+
+    .typewriter h2 {
+      overflow: hidden;
+      border-right: .15em solid #ff69b4;
+      white-space: nowrap;
+      margin: 0 auto;
+      letter-spacing: .10em;
+      animation: typing 4s steps(40, end), blink-caret 0.75s step-end infinite;
+      max-width: 100%;
+      font-size: 1.5em;
+      text-shadow: 1px 1px 3px #000;
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: #ff69b4 }
     }
 
     p {
       font-size: 1.2em;
       margin: 10px;
       text-shadow: 1px 1px 3px #000;
+      position: relative;
+      z-index: 1;
     }
 
     .heart {
@@ -41,6 +81,7 @@
       transform: rotate(45deg);
       animation: float 10s linear infinite;
       border-radius: 5px;
+      z-index: 1;
     }
 
     .heart::before,
@@ -87,6 +128,8 @@
       display: block;
       max-width: 200px;
       transition: all 0.3s ease;
+      position: relative;
+      z-index: 1;
     }
 
     .button:hover {
@@ -105,6 +148,7 @@
       margin: 30px 0 5px 0;
       gap: 800px;
       position: relative;
+      z-index: 1;
     }
 
     .imagenes img {
@@ -123,21 +167,28 @@
     .btn-container {
       margin-top: 20px;
       position: relative;
+      z-index: 1;
     }
 
     .boton-flotante {
       margin-top: 10px;
     }
 
-    /* Reservar espacio para elementos ocultos */
-    #propuesta,
-    #respuesta,
-    #emojis {
+    #propuesta {
       visibility: hidden;
       opacity: 0;
-      transition: opacity 0.8s ease;
+      transform: scale(0.9);
+      transition: all 0.8s ease;
       margin-top: 20px;
       height: auto;
+      z-index: 1;
+      position: relative;
+    }
+
+    #propuesta.visible {
+      visibility: visible !important;
+      opacity: 1 !important;
+      transform: scale(1);
     }
 
     #respuesta {
@@ -151,9 +202,45 @@
       margin-bottom: 20px;
     }
 
+    #respuesta,
+    #emojis {
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+
     .visible {
       visibility: visible !important;
       opacity: 1 !important;
+    }
+
+    .corazones-fijos {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      font-size: 2em;
+      opacity: 0.2;
+      animation: parpadeo 2s infinite alternate;
+      z-index: 1;
+    }
+
+    @keyframes parpadeo {
+      0% { opacity: 0.2; transform: scale(1); }
+      100% { opacity: 0.4; transform: scale(1.1); }
+    }
+
+    .te-amo {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-color: #ff1493;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 25px;
+      font-size: 1em;
+      animation: pulse 2s infinite;
+      z-index: 10;
     }
 
     footer {
@@ -162,6 +249,7 @@
       font-size: 0.9em;
       color: #fff;
       text-shadow: 1px 1px 2px #000;
+      z-index: 1;
     }
 
     @media (max-width: 600px) {
@@ -187,19 +275,21 @@
 <body>
 
   <h1>Para Ti, Mi Persona Favorita 💗</h1>
+
+  <div class="typewriter">
+    <h2>Te amo más de lo que las palabras pueden explicar 💖</h2>
+  </div>
+
   <p>Desde que llegaste a mi vida, todo es más bonito, más mágico, más tú...</p>
   <p>Hoy no quiero que sea un día cualquiera... porque quiero que este momento sea eterno.</p>
 
-  <!-- Música -->
   <button class="button" onclick="reproducirMusica()">🎵 Reproducir Canción</button>
   <div id="musica"></div>
 
-  <!-- Botón "Haz clic aquí" -->
   <div class="boton-flotante">
     <button class="button" onclick="mostrarPropuesta()">💌 Haz clic aquí</button>
   </div>
 
-  <!-- Propuesta -->
   <div id="propuesta">
     <h2>¿Puedo ser tu novio?💍</h2>
     <div class="btn-container">
@@ -208,18 +298,18 @@
     </div>
   </div>
 
-  <!-- Fotos visibles -->
   <div class="imagenes">
     <img src="imagen1.jpg" alt="Foto izquierda">
     <img src="imagen2.jpg" alt="Foto derecha">
   </div>
 
-  <!-- Footer siempre visible -->
-  <footer>Hecho con mucho amor por alguien que solo piensa en ti 💗</footer>
-
-  <!-- Mensaje y emojis -->
   <p id="respuesta">¡Gracias por decir que sí! No sabes cuánto significa esto para mí 💞</p>
   <p id="emojis">💗✨</p>
+
+  <footer>Hecho con mucho amor por alguien que solo piensa en ti 💗</footer>
+
+  <div class="corazones-fijos">❤️ 💗 💕 💖 💘</div>
+  <button class="te-amo">❤️ Te Amo ❤️</button>
 
   <script>
     const numHearts = 25;
