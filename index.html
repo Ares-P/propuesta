@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Para Ti, Mi Amor 💗</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-y: hidden;
+      background: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+      text-align: center;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      animation: pulse 2s infinite;
+    }
+
+    p {
+      font-size: 1.2em;
+      margin: 10px;
+      text-shadow: 1px 1px 3px #000;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: rgba(255, 0, 128, 0.6);
+      transform: rotate(45deg);
+      animation: float 10s linear infinite;
+      border-radius: 5px;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: rgba(255, 0, 128, 0.6);
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .button {
+      background-color: #ff69b4;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      font-size: 1em;
+      border-radius: 30px;
+      cursor: pointer;
+      margin: 10px auto;
+      animation: pulse 2s infinite;
+      display: block;
+      max-width: 200px;
+      transition: all 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #ff1493;
+    }
+
+    #btnNo {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .imagenes {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 30px 0 5px 0;
+      gap: 800px;
+      position: relative;
+    }
+
+    .imagenes img {
+      width: 160px;
+      height: auto;
+      border-radius: 20px;
+      border: 4px solid #ff69b4;
+      animation: brillito 2s infinite alternate;
+    }
+
+    @keyframes brillito {
+      0% { box-shadow: 0 0 10px #ff69b4; }
+      100% { box-shadow: 0 0 20px #fff; }
+    }
+
+    .btn-container {
+      margin-top: 20px;
+      position: relative;
+    }
+
+    .boton-flotante {
+      margin-top: 10px;
+    }
+
+    /* Reservar espacio para elementos ocultos */
+    #propuesta,
+    #respuesta,
+    #emojis {
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      margin-top: 20px;
+      height: auto;
+    }
+
+    #respuesta {
+      font-size: 1.8em;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 3px #000;
+    }
+
+    #emojis {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    .visible {
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+
+    footer {
+      position: relative;
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #fff;
+      text-shadow: 1px 1px 2px #000;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.8em;
+      }
+
+      p {
+        font-size: 1em;
+      }
+
+      .imagenes {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .imagenes img {
+        width: 60%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Para Ti, Mi Persona Favorita 💗</h1>
+  <p>Desde que llegaste a mi vida, todo es más bonito, más mágico, más tú...</p>
+  <p>Hoy no quiero que sea un día cualquiera... porque quiero que este momento sea eterno.</p>
+
+  <!-- Música -->
+  <button class="button" onclick="reproducirMusica()">🎵 Reproducir Canción</button>
+  <div id="musica"></div>
+
+  <!-- Botón "Haz clic aquí" -->
+  <div class="boton-flotante">
+    <button class="button" onclick="mostrarPropuesta()">💌 Haz clic aquí</button>
+  </div>
+
+  <!-- Propuesta -->
+  <div id="propuesta">
+    <h2>¿Puedo ser tu novio?💍</h2>
+    <div class="btn-container">
+      <button class="button" onclick="responderSi()">💗 ¡SÍ! 💗</button>
+      <button class="button" id="btnNo" onclick="moverBoton()">🚫 No</button>
+    </div>
+  </div>
+
+  <!-- Fotos visibles -->
+  <div class="imagenes">
+    <img src="imagen1.jpg" alt="Foto izquierda">
+    <img src="imagen2.jpg" alt="Foto derecha">
+  </div>
+
+  <!-- Footer siempre visible -->
+  <footer>Hecho con mucho amor por alguien que solo piensa en ti 💗</footer>
+
+  <!-- Mensaje y emojis -->
+  <p id="respuesta">¡Gracias por decir que sí! No sabes cuánto significa esto para mí 💞</p>
+  <p id="emojis">🎉💗😍💗🎊✨</p>
+
+  <script>
+    const numHearts = 25;
+    for (let i = 0; i < numHearts; i++) {
+      let heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+      document.body.appendChild(heart);
+    }
+
+    function reproducirMusica() {
+      const contenedor = document.getElementById("musica");
+      contenedor.innerHTML = `<iframe width="0" height="0" src="https://www.youtube.com/embed/wIuBcb2T55Q?autoplay=1&loop=1&playlist=wIuBcb2T55Q" frameborder="0" allow="autoplay" allowfullscreen></iframe>`;
+    }
+
+    function mostrarPropuesta() {
+      document.getElementById("propuesta").classList.add("visible");
+    }
+
+    function responderSi() {
+      document.getElementById("respuesta").classList.add("visible");
+      document.getElementById("emojis").classList.add("visible");
+    }
+
+    let noClicks = 0;
+    function moverBoton() {
+      const boton = document.getElementById("btnNo");
+      if (noClicks < 3) {
+        boton.style.position = "absolute";
+        const nuevaX = Math.random() * (window.innerWidth - boton.offsetWidth - 50);
+        const nuevaY = Math.random() * (window.innerHeight - boton.offsetHeight - 150);
+        boton.style.left = nuevaX + "px";
+        boton.style.top = nuevaY + "px";
+      } else {
+        boton.style.display = "none";
+      }
+      noClicks++;
+    }
+  </script>
+
+</body>
+</html>
